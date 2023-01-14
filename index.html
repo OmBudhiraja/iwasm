@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@assemblyscript/loader/umd/index.js"></script>
+    <script src="./js/loader.js"></script>
+    <script type="module">
+      const WL = new Loader();
+      WL.wasm('/build/release.wasm').then((instance) => {
+        const { readMemory, memory } = instance;
+
+        const memoryBuffer = new Uint8Array(memory.buffer);
+
+        console.log(memoryBuffer, memory, readMemory);
+
+        memoryBuffer[2] = 29;
+
+        document.write(memoryBuffer[0]);
+        document.write('<br>');
+        document.write(memoryBuffer[2]);
+      });
+    </script>
+  </head>
+  <body></body>
+</html>
